@@ -86,8 +86,6 @@ mkdir -p "$folder/usr/share/icons/"
 mkdir -p "$folder/root/.vnc/"
 
 mkdir -p "$folder/root/.config/gtk-3.0"
-echo -e "file:/// raiz\nfile:///sdcard sdcard" | sudo tee "$HOME/.config/gtk-3.0/bookmarks"
-
 
 cat > "$folder/usr/local/bin/vnc" <<- EOM
 #!/bin/bash
@@ -215,6 +213,8 @@ echo -e "file:/// raiz\nfile:///sdcard sdcard" | sudo tee "\$HOME/.config/gtk-3.
 
 etc_timezone=\$(cat /etc/timezone)
 sudo ln -sf "/usr/share/zoneinfo/\$etc_timezone" /etc/localtime
+
+echo -e "file:/// raiz\nfile:///sdcard sdcard" | sudo tee "$HOME/.config/gtk-3.0/bookmarks"
 
 # Firefox
 sudo install -d -m 0755 /etc/apt/keyrings
