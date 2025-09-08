@@ -231,7 +231,7 @@ echo 'deb [arch=arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] 
 rm -f packages.microsoft.gpg
 
 sudo apt update
-sudo apt install xz-utils curl gpg git python3 python3-gi python3-psutil tar unzip apt-utils nano inetutils-tools evince at-spi2-core bleachbit firefox firefox-l10n-$language_transformed code brave-browser -y
+sudo apt install xz-utils curl gpg git python3 python3-gi python3-psutil tar unzip apt-utils nano inetutils-tools evince at-spi2-core bleachbit firefox code brave-browser -y
 sudo apt install dconf-cli lsb-release exo-utils tigervnc-standalone-server tigervnc-common tigervnc-tools xterm xorg dbus-x11 nautilus font-manager synaptic gvfs-backends --no-install-recommends -y
 sudo sed -i 's/^Exec=synaptic-pkexec/Exec=synaptic/' /usr/share/applications/synaptic.desktop
 
