@@ -214,8 +214,6 @@ echo -e "file:/// raiz\nfile:///sdcard sdcard" | sudo tee "\$HOME/.config/gtk-3.
 etc_timezone=\$(cat /etc/timezone)
 sudo ln -sf "/usr/share/zoneinfo/\$etc_timezone" /etc/localtime
 
-echo -e "file:/// raiz\nfile:///sdcard sdcard" | sudo tee "$HOME/.config/gtk-3.0/bookmarks"
-
 # Firefox
 sudo install -d -m 0755 /etc/apt/keyrings
 wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
