@@ -198,7 +198,9 @@ apt update
 apt autoremove --purge whiptail -y
 apt --fix-broken install -y
 apt install fakeroot -y
-apt install dbus dbus-bin sudo wget dialog locales gpg curl -y
+apt install dbus
+dbus-daemon --system --fork
+apt install sudo wget dialog locales gpg curl -y
 sed -i 's/^# *\(pt_BR.UTF-8\)/\1/' /etc/locale.gen
 locale-gen
 echo 'export LC_ALL=pt_BR.UTF-8' >> ~/.bashrc
