@@ -31,13 +31,11 @@ export language_selected
 export language_transformed
 archurl="arm64"
 
-debootstrap --arch=$archurl $codinome $folder http://deb.debian.org/debian
-
 # Alt
-# wget https://github.com/termux/proot-distro/releases/download/v4.26.0/debian-trixie-aarch64-pd-v4.26.0.tar.xz
-#tar -xvf debian-trixie-aarch64-pd-v4.26.0.tar.xz
-#mkdir -p debian
-#mv debian-trixie-aarch64 debian/trixie
+wget https://github.com/termux/proot-distro/releases/download/v4.26.0/debian-trixie-aarch64-pd-v4.26.0.tar.xz
+tar -xvf debian-trixie-aarch64-pd-v4.26.0.tar.xz
+mkdir -p debian
+mv debian-trixie-aarch64 $distro_name/$codinome
 
 
 cat > $bin <<- EOM
@@ -196,14 +194,14 @@ echo "Atualizações e instalações necessárias"
 
 apt update
 apt autoremove --purge whiptail -y
-apt --fix-broken install -y
+apt --fix-broken install --no-install-recommends -y
 apt install fakeroot -y
-apt install dbus
+apt install dbus  dbus-x11 --no-install-recommends -y
 dbus-daemon --system --fork
-apt install sudo
+apt install sudo --no-install-recommends -y
 #echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/user
 #chmod 0440 /etc/sudoers.d/user
-apt install wget dialog locales gpg curl -y
+apt install wget dialog locales gpg curl --no-install-recommends -y
 sed -i 's/^# *\(pt_BR.UTF-8\)/\1/' /etc/locale.gen
 locale-gen
 echo 'export LC_ALL=pt_BR.UTF-8' >> ~/.bashrc
@@ -218,11 +216,11 @@ sudo rm -rf /var/cache/snapd
 sudo rm -rf /var/cache/flatpak
 sudo apt clean
 
-sudo apt full-upgrade -y
+sudo apt full-upgrade --no-install-recommends -y
 
-sudo apt install keyboard-configuration -y
+sudo apt install keyboard-configuration --no-install-recommends -y
 
-sudo DEBIAN_FRONTEND=noninteractive apt install tzdata -y
+sudo DEBIAN_FRONTEND=noninteractive apt install tzdata --no-install-recommends -y
 echo -e "file:/// raiz\nfile:///sdcard sdcard" | sudo tee "\$HOME/.config/gtk-3.0/bookmarks"
 
 etc_timezone=\$(cat /etc/timezone)
@@ -245,8 +243,11 @@ echo 'deb [arch=arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] 
 rm -f packages.microsoft.gpg
 
 sudo apt update
-sudo apt install xz-utils curl gpg git python3 python3-gi python3-psutil tar unzip apt-utils nano inetutils-tools evince at-spi2-core bleachbit firefox code brave-browser -y
-sudo apt install dconf-cli lsb-release exo-utils tigervnc-standalone-server tigervnc-common tigervnc-tools xterm xorg dbus-x11 nautilus font-manager synaptic gvfs-backends --no-install-recommends -y
+sudo apt install --no-install-recommends font-manager synaptic gvfs-backends  xterm xorg dconf-cli lsb-release tigervnc-standalone-server tigervnc-common tigervnc-tools xz-utils curl gpg git nano inetutils-tools python3 python3-gi python3-psutil tar unzip apt-utils  at-spi2-core -y
+sudo apt install --no-install-recommends bleachbit firefox code brave-browser -y
+# XFCE
+# sudo apt install exo-utils --no-install-recommends
+sudo apt install nautilus font-manager synaptic gvfs-backends --no-install-recommends -y
 sudo sed -i 's/^Exec=synaptic-pkexec/Exec=synaptic/' /usr/share/applications/synaptic.desktop
 
 sudo sed -i 's|Exec=/usr/share/code/code|Exec=/usr/share/code/code --no-sandbox|' /usr/share/applications/code*.desktop # Isso faz o VSCode iniciar
@@ -267,7 +268,8 @@ cd \$HOME
 echo -e '[Settings]\\ngtk-theme-name=ZorinBlue-Dark' | sudo tee \$HOME/.config/gtk-3.0/settings.ini
 echo 'gtk-theme-name=\"ZorinBlue-Dark\"' | sudo tee \$HOME/.gtkrc-2.0
 
-sudo apt install gdm3 gnome-session gnome-shell gnome-terminal gnome-tweaks gnome-control-center gnome-shell-extensions gnome-shell-extension-dashtodock gnome-package-updater gnome-calculator --no-install-recommends -y
+sudo apt install gnome-shell gnome-terminal gnome-shell-extensions gnome-shell-extension-dashtodock --no-install-recommends -y
+#sudo apt install gdm3 gnome-session gnome-shell gnome-terminal gnome-tweaks gnome-control-center gnome-shell-extensions gnome-shell-extension-dashtodock gnome-package-updater gnome-calculator --no-install-recommends -y
 cat > \$HOME/.vnc/xstartup <<EOF
 #!/bin/bash
 export LANG
@@ -277,7 +279,7 @@ EOF
 chmod +x ~/.vnc/xstartup
 echo 'export DISPLAY=":1"' >> /etc/profile
 
-touch ~/.Xauthority
+#touch ~/.Xauthority
 vncserver -name remote-desktop -geometry 1920x1080 :1
 sleep 10
 gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/john-towner-JgOeRuGD_Y4.jpg'
