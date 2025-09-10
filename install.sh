@@ -31,7 +31,7 @@ export language_selected
 export language_transformed
 archurl="arm64"
 
-debootstrap --arch=$archurl $codinome $folder http://ftp.debian.org/debian
+debootstrap --arch=$archurl $codinome $folder http://deb.debian.org/debian
 
 cat > $bin <<- EOM
 #!/bin/bash
