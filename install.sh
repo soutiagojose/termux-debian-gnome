@@ -268,7 +268,7 @@ cd \$HOME
 echo -e '[Settings]\\ngtk-theme-name=ZorinBlue-Dark' | sudo tee \$HOME/.config/gtk-3.0/settings.ini
 echo 'gtk-theme-name=\"ZorinBlue-Dark\"' | sudo tee \$HOME/.gtkrc-2.0
 
-sudo apt install gnome-shell gnome-terminal gnome-shell-extensions gnome-shell-extension-dashtodock --no-install-recommends -y
+sudo apt install gnome-shell gnome-terminal gnome-shell-extensions gnome-shell-extension-dashtodock gdm3 network-manager-gnome --no-install-recommends -y
 #sudo apt install gdm3 gnome-session gnome-shell gnome-terminal gnome-tweaks gnome-control-center gnome-shell-extensions gnome-shell-extension-dashtodock gnome-package-updater gnome-calculator --no-install-recommends -y
 cat > \$HOME/.vnc/xstartup <<EOF
 #!/bin/bash
