@@ -33,6 +33,13 @@ archurl="arm64"
 
 debootstrap --arch=$archurl $codinome $folder http://deb.debian.org/debian
 
+# Alt
+# wget https://github.com/termux/proot-distro/releases/download/v4.26.0/debian-trixie-aarch64-pd-v4.26.0.tar.xz
+#tar -xvf debian-trixie-aarch64-pd-v4.26.0.tar.xz
+#mkdir -p debian
+#mv debian-trixie-aarch64 debian/trixie
+
+
 cat > $bin <<- EOM
 #!/bin/bash
 wlan_ip_localhost=\$(ifconfig 2>/dev/null | grep 'inet ' | grep broadcast | awk '{print \$2}') # IP da rede 
@@ -190,6 +197,7 @@ echo "Atualizações e instalações necessárias"
 apt update
 apt autoremove --purge whiptail -y
 apt --fix-broken install -y
+apt install fakeroot -y
 apt install dbus dbus-bin sudo wget dialog locales gpg curl -y
 sed -i 's/^# *\(pt_BR.UTF-8\)/\1/' /etc/locale.gen
 locale-gen
