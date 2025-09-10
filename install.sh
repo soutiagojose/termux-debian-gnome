@@ -200,7 +200,10 @@ apt --fix-broken install -y
 apt install fakeroot -y
 apt install dbus
 dbus-daemon --system --fork
-apt install sudo wget dialog locales gpg curl -y
+apt install sudo
+#echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/user
+#chmod 0440 /etc/sudoers.d/user
+apt install wget dialog locales gpg curl -y
 sed -i 's/^# *\(pt_BR.UTF-8\)/\1/' /etc/locale.gen
 locale-gen
 echo 'export LC_ALL=pt_BR.UTF-8' >> ~/.bashrc
