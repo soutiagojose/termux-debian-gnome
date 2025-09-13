@@ -21,6 +21,9 @@ pkg upgrade -y
 pkg install curl wget dialog tar unzip xz-utils dbus debootstrap proot proot-distro termux-services termux-exec -y
 
 
+# proot-distro baixa a imagem em: /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs
+
+
 distro_name="debian"
 bin="start-$distro_name.sh"
 codinome="trixie"
